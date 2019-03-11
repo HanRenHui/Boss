@@ -62,3 +62,19 @@
   border: 1px solid #ccc;
   border-radius: .5rem;
 }
+.captch {
+  width: 100%;
+  position: relative;
+  /* background: red; */
+  /* height: 4.8rem; */
+}
+.captch input {
+  width: 100%;  
+}
+.captch img {
+  position: absolute;
+  right: 0;
+  top: 0;
+  height: 4.8rem;
+  
+} 

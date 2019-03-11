@@ -47,7 +47,10 @@ class Login extends Component {
           <form onSubmit={this.handleSubmit} className='loginform'>
             <input type="text" onChange={ e =>  this.handleChange(e, 1)} placeholder='请输入用户名'/>
             <input type="password" onChange={ e =>  this.handleChange(e, 2)}  placeholder='请输入密码'/>
-            <input type="text" onChange={ e =>  this.handleChange(e, 3)} placeholder='请输入验证码'/>
+            <div className='captch'>
+              <input type="text" onChange={ e =>  this.handleChange(e, 3)} placeholder='请输入验证码'/>
+              <img src="http://localhost:1888/captcha" alt=""/>
+            </div>
             <Picker  data={mydata} cols={1} {...getFieldProps('district3')} className="forss" onChange={val => this.handlePick(val)}>
               <List.Item arrow="horizontal" className='picker-item'>请选择身份</List.Item>
             </Picker>
