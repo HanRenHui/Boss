@@ -5,6 +5,7 @@
   "dependencies": {
     "antd-mobile": "^2.2.9",
     "babel-plugin-import": "^1.11.0",
+    "rc-form": "^2.4.3",
     "react": "^16.8.4",
     "react-dom": "^16.8.4",
     "react-router-dom": "^4.3.1",
