@@ -1,11 +1,27 @@
 import React, { Component } from 'react'
-import { Button } from 'antd-mobile'
+import {
+  BrowserRouter as Router,
+  Route,
+  Switch
+} from 'react-router-dom'
+import routes from './routes/routes'
 export default class App extends Component {
   render() {
     return (
-      <div>
-        <Button type='primary'>搜索</Button>
-      </div>
+      <Router>
+        <div>
+          <Switch>
+            {routes.map((route , index) => (
+              <Route 
+                key={index}
+                path={route.path} 
+                exact={route.exact}  
+                render={(props) => (<route.component routes={route.routes} props={props}/>)} 
+              />
+            ))}
+          </Switch>
+        </div>
+      </Router>
     )
   }
 }
