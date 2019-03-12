@@ -4,6 +4,7 @@ import {
   Route,
   Switch
 } from 'react-router-dom'
+// import 
 import routes from './routes/routes'
 export default class App extends Component {
   render() {
@@ -11,6 +12,7 @@ export default class App extends Component {
       <Router>
         <div>
           <Switch>
+            
             {routes.map((route , index) => (
               <Route 
                 key={index}

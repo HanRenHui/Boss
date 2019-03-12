@@ -47,7 +47,7 @@ class Login extends Component {
       username, 
       password,
       captchaText,
-      identity
+      identity,
     }))
   }
 
@@ -78,9 +78,20 @@ class Login extends Component {
   changeCaptcha = e => {
     e.target.src = `http://localhost:1888/captcha?time=${Math.random()}`
   }
+  redirect = () => {
+    const { identity } = store.getState()
+    if(identity === 1) {
+      // redirect to userpage
+      this.props.props.history.push('/user')
+    }else if(identity === 2) {
+      // redirect to bosspage
+      this.props.props.history.push('/boss')
+    }
+  }
   componentDidMount() {
     this.unsubscribe = store.subscribe(() => {
       this.setState({
+        avatar: store.getState().avatar,
         message: store.getState().message,
         errCode: store.getState().errCode,
         Author: store.getState().Author
@@ -88,6 +99,9 @@ class Login extends Component {
         if(this.state.errCode === 0) {
           // 登陆成功
           Toast.success(this.state.message)
+          // 判断是老板还是大神， 然后判断是不是有头像 所以有四个页面
+          this.redirect()
+
         } else if(this.state.errCode === 1 || this.state.errCode === 2){
           // 登陆失败
           Toast.fail(this.state.message)
@@ -100,6 +114,9 @@ class Login extends Component {
         }
       })
     })
+  }
+  componentWillUnmount() {
+    this.unsubscribe()
   }
   render() {
     const { getFieldProps } = this.props.form;
