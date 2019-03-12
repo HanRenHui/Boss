@@ -1,7 +1,8 @@
 import React, { Component } from 'react'
 import './index.css'
 import { NavBar,Grid, List, InputItem, TextareaItem, Button, Toast } from 'antd-mobile'
-
+import store from './../../store'
+import { updateActopm } from './../../store/actionCreators'
 export default class BossInfo extends Component {
   constructor() {
     super() 
@@ -18,15 +19,26 @@ export default class BossInfo extends Component {
       desc: ''
     }
   }
+  // componentWillMount() {
+  //   this.unsubscribe = store.subscribe(() => {
+  //     title: 
+  //   })
+  // }
   handleSubmit = () => {
-    console.log(0);
-    
     const { pic, title, company, money, desc} = this.state 
     if(!pic) {
-      return Toast.info('请先选择头像')
+      return Toast.info('请先选择头像', 1)
     }else if(!title || !company || !money || !desc) {
-      return Toast.info('请将表单填写完整')
+      return Toast.info('请将表单填写完整', 1)
     }
+    store.dispatch(updateActopm({
+      pic,
+      company, 
+      money,
+      desc,
+      title
+    }))
+
   }
   handleGrid = (index) => {
     this.setState({
@@ -106,7 +118,7 @@ export default class BossInfo extends Component {
           <InputItem onChange={v => this.onChange('money', v)}>招聘薪资</InputItem>
           <TextareaItem autoHeight title='职位要求' onChange={v => this.onChange('desc', v)}/>
         </List>
-        <Button className='saveBtn' onSubmit={this.handleSubmit}>保存</Button>
+        <Button className='saveBtn' onClick={this.handleSubmit}>保存</Button>
       </div>
     )
   }

@@ -1,5 +1,6 @@
 import {
-  LOGIN_IN
+  LOGIN_IN,
+  UPDATE_INFO
 } from './actionTypes'
 
 export const loginAction = paras => ({
@@ -7,3 +8,7 @@ export const loginAction = paras => ({
   payload: paras
 })
 
+export const updateActopm = paras => ({
+  type: UPDATE_INFO,
+  payload: paras
+})

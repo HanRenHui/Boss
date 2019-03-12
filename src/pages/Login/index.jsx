@@ -82,10 +82,16 @@ class Login extends Component {
     const { identity } = store.getState()
     if(identity === 1) {
       // redirect to userpage
-      this.props.props.history.push('/user')
+      this.props.props.history.push('/userinfo')
     }else if(identity === 2) {
       // redirect to bosspage
-      this.props.props.history.push('/boss')
+      if(store.getState().userInfo.isInit) {
+        // 直接进入页面
+        this.props.props.history.push('/boss')
+      }else {
+        // 完善具体信息
+        this.props.props.history.push('/bossinfo')
+      }
     }
   }
   componentDidMount() {

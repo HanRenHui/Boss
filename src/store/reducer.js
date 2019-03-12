@@ -7,11 +7,12 @@ let defaultState = {
   Author: '',
   // 记录身份 1 大神 2 老板
   identity: 0,
-  // 头像
-  avatar: '',
-  userInfo: {
 
+  // 保存大神的各种信息
+  userInfo: {
+    
   },
+  // 保存老板的各种信息
   bossInfo: {
 
   }
@@ -27,7 +28,12 @@ function reducer(state = defaultState, action) {
       newState.message = action.message 
       newState.Author = action.user 
       newState.identity = action.identity
+      newState.userInfo = action.info
       return newState
+    case 'UPDATE': 
+      newState.bossInfo = action.info
+      console.log(newState)
+      return newState 
     default : 
       newState.errCode = -1 
       return newState 
