@@ -7,16 +7,22 @@ import {
 } from './../api/index'
 
 function * watchLogin(action) {
-  console.log(action)
-
   let result = yield call(login, action.payload)
-  console.log(result);
+  const { status, data } = result 
+  if(status === 200) {
+    yield put({
+      type: 'LOGIN',
+      err_code: data.err_code, 
+      message: data.message,
+      user: data.user
+    })
+  }
   
 }
 
 
-function* mySaga() {
+function* mySagas() {
   yield takeEvery(LOGIN_IN, watchLogin)
 }
 
-export default mySaga
+export default mySagas

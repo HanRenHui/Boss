@@ -21,6 +21,7 @@ class Login extends Component {
       username: '',
       // 记录密码
       password: '',
+      flag: true
     }
   }
 
@@ -39,7 +40,7 @@ class Login extends Component {
   handleSubmit = e => {
     const {username, password, captchaText, identity} = this.state 
     if(!username || !password ||!captchaText || !identity) {
-      return Toast.fail('请将表单填写完整', 1.5);
+      return Toast.fail('请将表单填写完整', 1);
     }
      // 登陆
     store.dispatch(loginAction({
@@ -77,7 +78,29 @@ class Login extends Component {
   changeCaptcha = e => {
     e.target.src = `http://localhost:1888/captcha?time=${Math.random()}`
   }
-
+  componentDidMount() {
+    this.unsubscribe = store.subscribe(() => {
+      this.setState({
+        message: store.getState().message,
+        errCode: store.getState().errCode,
+        Author: store.getState().Author
+      }, () => {
+        if(this.state.errCode === 0) {
+          // 登陆成功
+          Toast.success(this.state.message)
+        } else if(this.state.errCode === 1 || this.state.errCode === 2){
+          // 登陆失败
+          Toast.fail(this.state.message)
+          // 更新二维码
+          this.refs.captcha.src = `http://localhost:1888/captcha?time=${Math.random()}`
+          this.setState({
+            captchaText: '',
+            password: ''
+          })
+        }
+      })
+    })
+  }
   render() {
     const { getFieldProps } = this.props.form;
     let mydata = [
@@ -98,13 +121,13 @@ class Login extends Component {
             <input type="password" onChange={ e =>  this.handleChange(e, 2)} value={password}  placeholder='请输入密码'/>
             <div className='captch'>
               <input type="text" onChange={ e =>  this.handleChange(e, 3)} value={captchaText} placeholder='请输入验证码'/>
-              <img src="http://localhost:1888/captcha" onClick={e => this.changeCaptcha(e)} alt=""/>
+              <img src="http://localhost:1888/captcha" ref='captcha'  onClick={e => this.changeCaptcha(e)} alt=""/>
             </div>
             <Picker  data={mydata} cols={1} {...getFieldProps('district3')} className="forss" onOk={e => this.handleOk(e)}>
               <List.Item arrow="horizontal" className='picker-item'>请选择身份</List.Item>
             </Picker>
             <Button type='primary' onClick={this.handleSubmit} className='login-btn'>登陆</Button>
-            <Button className='back-btn' onClick={() => this.props.props.history.push('/')}>返回</Button>
+            <Button className='back-btn'  onClick={() => this.props.props.history.push('/')}>返回</Button>
           </form>
           <p className='notice'>注意：新账号会自动注册</p>
           </div>
