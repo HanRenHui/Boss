@@ -1,6 +1,7 @@
 import {
   LOGIN_IN,
-  UPDATE_INFO
+  UPDATE_INFO,
+  AUTO_PALY
 } from './actionTypes'
 
 export const loginAction = paras => ({
@@ -11,4 +12,9 @@ export const loginAction = paras => ({
 export const updateActopm = paras => ({
   type: UPDATE_INFO,
   payload: paras
+})
+
+
+export const autoplayAction = () => ({
+  type: AUTO_PALY
 })

@@ -96,12 +96,14 @@ class Login extends Component {
   }
   componentDidMount() {
     this.unsubscribe = store.subscribe(() => {
+      console.log('subscibe -------');
       this.setState({
         avatar: store.getState().avatar,
         message: store.getState().message,
         errCode: store.getState().errCode,
         Author: store.getState().Author
       }, () => {
+
         if(this.state.errCode === 0) {
           // 登陆成功
           Toast.success(this.state.message)

@@ -7,18 +7,14 @@ let defaultState = {
   Author: '',
   // 记录身份 1 大神 2 老板
   identity: 0,
-
-  // 保存大神的各种信息
+  avatar: '',
+  // 保存各种信息
   userInfo: {
-    
-  },
-  // 保存老板的各种信息
-  bossInfo: {
-
   }
+
 }
 
-// 总结 就算结成了saga， 一开始也是会先走这里的
+// 总结 就算集成了saga， 一开始也是会先走这里的
 function reducer(state = defaultState, action) {
   if(!action) return 
   let newState = JSON.parse(JSON.stringify(state))
@@ -31,9 +27,16 @@ function reducer(state = defaultState, action) {
       newState.userInfo = action.info
       return newState
     case 'UPDATE': 
-      newState.bossInfo = action.info
-      console.log(newState)
+      newState.userInfo = action.info
       return newState 
+    case 'autologin': 
+      console.log(action)
+      newState.message = action.message
+      newState.Author = action.Author
+      newState.avatar = action.avatar 
+      newState.identity = action.identity
+      newState.userInfo = action.userInfo
+      return newState
     default : 
       newState.errCode = -1 
       return newState 
