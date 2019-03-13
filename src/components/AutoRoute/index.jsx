@@ -25,23 +25,25 @@ class AutoRoute extends Component {
         identity: store.getState().identity,
         message: store.getState().message
       }, () => {
-        if(this.state.Author) {
-          // 自动登陆
-          let path = this.state.identity === 1 ? '/user' : '/boss'
-          this.props.history.push(path)
+        console.log(0);
+        
+        // if(this.state.Author) {
+        //   // 自动登陆
+        //   let path = this.state.identity === 1 ? '/user' : '/boss'
+        //   this.props.history.push(path)
           
-          Toast.success(this.state.message, 2)
-        }else {
-          // 未登录跳转到登陆页
-          this.props.history.push('/')
-          Toast.fail('请先登录', 1)
-        }
+        //   Toast.success(this.state.message, 2)
+        // }else {
+        //   // 未登录跳转到登陆页
+        //   this.props.history.push('/')
+        //   Toast.fail('请先登录', 1)
+        // }
       })
     })
   }
   componentDidMount() {
     //自动登陆
-    store.dispatch(autoplayAction())
+    // store.dispatch(autoplayAction())
   }
   componentWillUnmount() {
     // this.unsubscribe()

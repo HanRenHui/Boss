@@ -30,7 +30,6 @@ function reducer(state = defaultState, action) {
       newState.userInfo = action.info
       return newState 
     case 'autologin': 
-      console.log(action)
       newState.message = action.message
       newState.Author = action.Author
       newState.avatar = action.avatar 

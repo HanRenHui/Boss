@@ -42,6 +42,7 @@ class Login extends Component {
     if(!username || !password ||!captchaText || !identity) {
       return Toast.fail('请将表单填写完整', 1);
     }
+    
      // 登陆
     store.dispatch(loginAction({
       username, 
@@ -78,34 +79,45 @@ class Login extends Component {
   changeCaptcha = e => {
     e.target.src = `http://localhost:1888/captcha?time=${Math.random()}`
   }
+  // 负责登陆后的页面跳转
+  jumpTo = pagename => {
+    console.log(store.getState().userInfo.isInit);
+    if(store.getState().userInfo.isInit === 1) {
+      // 直接进入页面
+      console.log(0);
+      debugger
+      this.props.props.history.push(`/${pagename}`)
+    }else {
+      console.log(1);
+      debugger
+      // 完善具体信息
+      this.props.props.history.push(`/${pagename}info`)
+    }
+  }
   redirect = () => {
     const { identity } = store.getState()
     if(identity === 1) {
       // redirect to userpage
-      this.props.props.history.push('/userinfo')
+      this.jumpTo('user')
     }else if(identity === 2) {
       // redirect to bosspage
-      if(store.getState().userInfo.isInit) {
-        // 直接进入页面
-        this.props.props.history.push('/boss')
-      }else {
-        // 完善具体信息
-        this.props.props.history.push('/bossinfo')
-      }
+      this.jumpTo('boss')
     }
   }
-  componentDidMount() {
+  componentWillMount() {
     this.unsubscribe = store.subscribe(() => {
-      console.log('subscibe -------');
       this.setState({
         avatar: store.getState().avatar,
         message: store.getState().message,
         errCode: store.getState().errCode,
         Author: store.getState().Author
       }, () => {
-
+        console.log(this.state.errCode);
+        
         if(this.state.errCode === 0) {
-          // 登陆成功
+          // 登陆成功\
+          console.log('success');
+          
           Toast.success(this.state.message)
           // 判断是老板还是大神， 然后判断是不是有头像 所以有四个页面
           this.redirect()
@@ -141,7 +153,7 @@ class Login extends Component {
         </header>
         <section className='login-body'>
           <div className='body-content'>
-          <form onSubmit={e => this.handleSubmit(e)} className='loginform'>
+          <form className='loginform'>
             <input type="text" onChange={ e =>  this.handleChange(e, 1)} value={username} placeholder='请输入用户名'/>
             <input type="password" onChange={ e =>  this.handleChange(e, 2)} value={password}  placeholder='请输入密码'/>
             <div className='captch'>

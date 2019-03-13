@@ -3,6 +3,7 @@ import './index.css'
 import { NavBar,Grid, List, InputItem, TextareaItem, Button, Toast } from 'antd-mobile'
 import store from './../../store'
 import { updateActopm } from './../../store/actionCreators'
+
 export default class BossInfo extends Component {
   constructor() {
     super() 
@@ -16,14 +17,11 @@ export default class BossInfo extends Component {
       // 招聘薪资
       money: '',
       // 对职位的要求
-      desc: ''
+      desc: '',
+      info: {}
     }
   }
-  // componentWillMount() {
-  //   this.unsubscribe = store.subscribe(() => {
-  //     title: 
-  //   })
-  // }
+ 
   handleSubmit = () => {
     const { pic, title, company, money, desc} = this.state 
     if(!pic) {
@@ -65,6 +63,13 @@ export default class BossInfo extends Component {
     ]
     this.setState({
       picArr: picData
+    })
+    this.unsubscribe = store.subscribe(() => {
+      this.setState({
+        pic: store.getState().avatar,
+        info: store.getState().userInfo ? 
+              store.getState().userInfo: {}
+      })
     })
   }
   onChange = (type, val) => {
