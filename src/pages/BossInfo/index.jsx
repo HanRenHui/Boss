@@ -1,9 +1,9 @@
 import React, { Component } from 'react'
 import './index.css'
-import { NavBar,Grid, List, InputItem, TextareaItem, Button, Toast } from 'antd-mobile'
+import { NavBar, List, InputItem, TextareaItem, Button, Toast } from 'antd-mobile'
 import store from './../../store'
 import { updateActopm } from './../../store/actionCreators'
-
+import AvatarInfo from './../../components/AvatarInfo'
 export default class BossInfo extends Component {
   constructor() {
     super() 
@@ -38,32 +38,13 @@ export default class BossInfo extends Component {
     }))
 
   }
-  handleGrid = (index) => {
+  handleGrid = (data) => {
     this.setState({
-      pic: this.state.picArr[index].icon
+      pic: data
     })
   }
   componentWillMount() {
-    const picData = [
-      {icon: require('./../../assets/images/boy.png'), text: 'boy'},
-      {icon: require('./../../assets/images/bull.png'), text: 'bull'},
-      {icon: require('./../../assets/images/chick.png'), text: 'chick'},
-      {icon: require('./../../assets/images/crab.png'), text: 'crab'},
-      {icon: require('./../../assets/images/girl.png'), text: 'girl'},
-      {icon: require('./../../assets/images/hedgehog.png'), text: 'hedgehog'},
-      {icon: require('./../../assets/images/hippopotamus.png'), text: 'hippopotamus'},
-      {icon: require('./../../assets/images/koala.png'), text: 'koala'},
-      {icon: require('./../../assets/images/lemur.png'), text: 'lemur'},
-      {icon: require('./../../assets/images/man.png'), text: 'man'},
-      {icon: require('./../../assets/images/pig.png'), text: 'pig'},
-      {icon: require('./../../assets/images/tiger.png'), text: 'tiger'},
-      {icon: require('./../../assets/images/whale.png'), text: 'whale'},
-      {icon: require('./../../assets/images/woman.png'), text: 'woman'},
-      {icon: require('./../../assets/images/zebra.png'), text: 'zebra'},
-    ]
-    this.setState({
-      picArr: picData
-    })
+    
     this.unsubscribe = store.subscribe(() => {
       this.setState({
         pic: store.getState().avatar,
@@ -101,22 +82,14 @@ export default class BossInfo extends Component {
 
   render() {
     
-    const { pic } = this.state 
-    const title = pic ? (
-      <div className='title'>
-        已选择头像: <img src={pic} alt="" style={{width: 20}}/>
-      </div>
-    ) : (
-      <p className='title'>请选择头像</p>
-    )
+    
     return (
       <div className='bosspage'>
         <NavBar
           mode="dark"
           className='bossBar'
         >请补充BOSS信息</NavBar>
-        { title }
-        <Grid data={this.state.picArr} columnNum={5}  onClick={(el, index) => this.handleGrid(index)} />
+        <AvatarInfo handleGrid={this.handleGrid}/>
         <List style={{marginTop: 30}} >
           <InputItem onChange={v => this.onChange('title', v)}>招聘职位</InputItem>
           <InputItem onChange={v => this.onChange('company', v)}>公司名称</InputItem>

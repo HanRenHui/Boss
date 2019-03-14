@@ -85,11 +85,9 @@ class Login extends Component {
     if(store.getState().userInfo.isInit === 1) {
       // 直接进入页面
       console.log(0);
-      debugger
       this.props.props.history.push(`/${pagename}`)
     }else {
       console.log(1);
-      debugger
       // 完善具体信息
       this.props.props.history.push(`/${pagename}info`)
     }

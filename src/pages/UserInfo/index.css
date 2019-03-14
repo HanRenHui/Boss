@@ -1,0 +1,25 @@
+.bossBar {
+  background: #5dd5c8;
+  font-family: '微软雅黑';
+  font-size: 1.6rem;
+}
+.title {
+  font-family: '微软雅黑';
+  font-size: 1.7rem;
+  margin: 2rem 0 2rem 1.5rem;
+}
+
+.grid {
+  font-size: 1.6rem;
+}
+.am-grid-icon {
+  width: 4rem;
+  height: 2.5rem;
+}
+
+.saveBtn {
+  background: #5dd5c8;
+  margin-top: 4rem;
+  color: #fff;
+  font-size: 2rem;
+}

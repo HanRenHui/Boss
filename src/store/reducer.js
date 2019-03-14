@@ -28,11 +28,11 @@ function reducer(state = defaultState, action) {
       return newState
     case 'UPDATE': 
       newState.userInfo = action.info
+      newState.message=action.message
       return newState 
     case 'autologin': 
       newState.message = action.message
       newState.Author = action.Author
-      newState.avatar = action.avatar 
       newState.identity = action.identity
       newState.userInfo = action.userInfo
       return newState
