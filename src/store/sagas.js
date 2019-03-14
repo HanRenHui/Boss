@@ -3,7 +3,8 @@ import {
   LOGIN_IN,
   UPDATE_INFO,
   AUTO_PALY,
-  REQ_USER_LIST
+  REQ_USER_LIST,
+  REQ_BOSS_LIST
 } from './actionTypes'
 
 // api
@@ -79,12 +80,25 @@ function* watchReqUserList() {
     })
   }
 }
+function* watchReqBossList() {
+  let result = yield reqUserList({
+    type: 'boss'
+  })
+  const { data, status } = result   
+  if(status === 200) {
+    yield put({
+      bossList: data.bossList,
+      type: 'BOSS_LIST'
+    })
+  }
+}
 
 function* mySagas() {
   yield takeEvery(LOGIN_IN, watchLogin)
   yield takeEvery(UPDATE_INFO, watchUpdate)
   yield takeEvery(AUTO_PALY, watchAutoPlay)
   yield takeEvery(REQ_USER_LIST, watchReqUserList)
+  yield takeEvery(REQ_BOSS_LIST,watchReqBossList)
 }
 
 export default mySagas

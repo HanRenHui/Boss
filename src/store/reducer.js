@@ -11,7 +11,8 @@ let defaultState = {
   // 保存各种信息
   userInfo: {
   },
-  userList: []
+  userList: [],
+  bossList: []
 
 }
 
@@ -26,7 +27,6 @@ function reducer(state = defaultState, action) {
       newState.Author = action.user 
       newState.identity = action.identity
       newState.userInfo = action.info
-      console.log(newState)
       return newState
     case 'UPDATE': 
       newState.userInfo = action.info
@@ -40,6 +40,9 @@ function reducer(state = defaultState, action) {
       return newState
     case 'USER_LIST': 
       newState.userList = action.userList
+      return newState
+    case 'BOSS_LIST': 
+      newState.bossList = action.bossList 
       return newState
     default : 
       newState.errCode = -1 

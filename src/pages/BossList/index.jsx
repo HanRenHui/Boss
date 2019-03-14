@@ -3,33 +3,34 @@ import store from './../../store'
 import './index.css'
 import User from './../../components/User'
 import {
-  userlistAction
+  bosslistAction
 } from './../../store/actionCreators'
-export default class UserList extends Component {
+export default class BossList extends Component {
   constructor() {
     super()
     this.state = {
-      userList: []
+      bossList: []
     }
   }
   componentWillMount() {
     this.unsubscribe = store.subscribe(() => {
       
       this.setState({
-        userList: store.getState().userList
+        bossList: store.getState().bossList
       })
     })
   }
   componentDidMount() {
-    store.dispatch(userlistAction())
+    store.dispatch(bosslistAction())
   }
   componentWillUnmount() {
     this.unsubscribe()
   }
   render() {
+    
     return (
-      <div className='userlist'>
-          {this.state.userList.map((list, index) => (
+      <div className='bosslist'>
+          {this.state.bossList.map((list, index) => (
           <User list={list} index={index} key={index}/>
           ))}
       </div>
