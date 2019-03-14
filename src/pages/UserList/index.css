@@ -24,14 +24,17 @@
   display: flex;
   align-items: center; 
 }
+
 .card-header .card-header-left img {
   margin-right: 1.6rem;
 }
+
 .card-header-right {
   font-family: '微软雅黑';
   color: #108ee9;
   font-size: 1.6rem;
 }
+
 .card-body {
   width: 100%;
   box-sizing: border-box;

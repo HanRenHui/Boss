@@ -50,6 +50,8 @@ export default class BossInfo extends Component {
         pic: store.getState().avatar,
         info: store.getState().userInfo ? 
               store.getState().userInfo: {}
+      }, () => {
+        this.props.props.history.push('/boss/list')
       })
     })
   }

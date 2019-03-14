@@ -91,6 +91,8 @@ class Login extends Component {
   }
   redirect = () => {
     const { identity } = store.getState()
+    console.log(identity);
+    
     if(identity === 1) {
       // redirect to userpage
       this.jumpTo('user')
@@ -107,7 +109,6 @@ class Login extends Component {
         errCode: store.getState().errCode,
         Author: store.getState().Author
       }, () => {
-        console.log(this.state.errCode);
         
         if(this.state.errCode === 0) {
           // 登陆成功\

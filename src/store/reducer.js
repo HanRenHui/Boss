@@ -26,6 +26,7 @@ function reducer(state = defaultState, action) {
       newState.Author = action.user 
       newState.identity = action.identity
       newState.userInfo = action.info
+      console.log(newState)
       return newState
     case 'UPDATE': 
       newState.userInfo = action.info

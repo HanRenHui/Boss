@@ -19,6 +19,8 @@ import {
 function * watchLogin(action) {
   let result = yield call(login, action.payload)
   const { status, data } = result 
+  console.log(data);
+  
   if(status === 200) {
     yield put({
       type: 'LOGIN',
