@@ -2,14 +2,16 @@ import {put, takeEvery, call} from 'redux-saga/effects'
 import {
   LOGIN_IN,
   UPDATE_INFO,
-  AUTO_PALY
+  AUTO_PALY,
+  REQ_USER_LIST
 } from './actionTypes'
 
 // api
 import {
   login,
   updateInfo,
-  checkAutoPlay
+  checkAutoPlay,
+  reqUserList
 } from './../api/index'
 
 
@@ -62,10 +64,25 @@ function* watchAutoPlay() {
   }
 }
 
+// 请求大神列表
+function* watchReqUserList() {
+  let result = yield reqUserList({
+    type: 'user'
+  })
+  const { data, status } = result   
+  if(status === 200) {
+    yield put({
+      userList: data.userList,
+      type: 'USER_LIST'
+    })
+  }
+}
+
 function* mySagas() {
   yield takeEvery(LOGIN_IN, watchLogin)
   yield takeEvery(UPDATE_INFO, watchUpdate)
   yield takeEvery(AUTO_PALY, watchAutoPlay)
+  yield takeEvery(REQ_USER_LIST, watchReqUserList)
 }
 
 export default mySagas

@@ -81,13 +81,10 @@ class Login extends Component {
   }
   // 负责登陆后的页面跳转
   jumpTo = pagename => {
-    console.log(store.getState().userInfo.isInit);
     if(store.getState().userInfo.isInit === 1) {
       // 直接进入页面
-      console.log(0);
-      this.props.props.history.push(`/${pagename}`)
+      this.props.props.history.push(`/${pagename}/list`)
     }else {
-      console.log(1);
       // 完善具体信息
       this.props.props.history.push(`/${pagename}info`)
     }
@@ -114,7 +111,6 @@ class Login extends Component {
         
         if(this.state.errCode === 0) {
           // 登陆成功\
-          console.log('success');
           
           Toast.success(this.state.message)
           // 判断是老板还是大神， 然后判断是不是有头像 所以有四个页面

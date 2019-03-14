@@ -1,13 +1,12 @@
 import React, { Component } from 'react'
 import TabHandF from './../../components/TabHandF'
 import { Route } from 'react-router-dom'
+import UserList from './../UserList'
 function Profile() {
   return <div>个人中心</div>
 }
 
-function UserList() {
-  return <div>UserList</div>
-}
+
 function TextList() {
   return <div>TextList</div>
 }
@@ -47,6 +46,7 @@ export default class Boss extends Component {
     ]
     return (
       <div className='boss'>
+
         <TabHandF 
             tabobj={tabObj} 
             pathname={this.props.props.location.pathname}

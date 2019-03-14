@@ -1,7 +1,8 @@
 import {
   LOGIN_IN,
   UPDATE_INFO,
-  AUTO_PALY
+  AUTO_PALY,
+  REQ_USER_LIST
 } from './actionTypes'
 
 export const loginAction = paras => ({
@@ -17,4 +18,8 @@ export const updateActopm = paras => ({
 
 export const autoplayAction = () => ({
   type: AUTO_PALY
+})
+
+export const userlistAction = () => ({
+  type: REQ_USER_LIST
 })

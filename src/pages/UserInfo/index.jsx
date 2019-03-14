@@ -36,8 +36,6 @@ export default class BossInfo extends Component {
 
   }
   handleGrid = (data) => {
-    console.log(data);
-    
     this.setState({
       pic: data
     })

@@ -10,7 +10,8 @@ let defaultState = {
   avatar: '',
   // 保存各种信息
   userInfo: {
-  }
+  },
+  userList: []
 
 }
 
@@ -35,6 +36,9 @@ function reducer(state = defaultState, action) {
       newState.Author = action.Author
       newState.identity = action.identity
       newState.userInfo = action.userInfo
+      return newState
+    case 'USER_LIST': 
+      newState.userList = action.userList
       return newState
     default : 
       newState.errCode = -1 

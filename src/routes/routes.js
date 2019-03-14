@@ -5,12 +5,11 @@ import UserInfo from './../pages/UserInfo'
 import Boss from './../pages/Boss'
 import User from './../pages/User'
 import React from 'react'
+import UserList from './../pages/UserList'
 function BossList() {
   return <div>BossList</div>
 }
-function UserList() {
-  return <div>Userlist</div>
-}
+
 function Chat() {
   return <div>Chat</div>
 }
