@@ -15,9 +15,9 @@ export default class App extends Component {
     return (
       <Router>
         <div>
+        {/* 用来做自动登陆 */}
         <AutoRoute />
           <Switch>
-            {/* 用来做自动登陆 */}
             {routes.map((route , index) => (
               <Route 
                 key={index}
@@ -26,6 +26,7 @@ export default class App extends Component {
                 render={(props) => (<route.component routes={route.routes} props={props}/>)} 
               />
             ))}
+            {/* 匹配落单路由 */}
           </Switch>
         </div>
       </Router>

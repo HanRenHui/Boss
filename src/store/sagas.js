@@ -23,7 +23,7 @@ function * watchLogin(action) {
       err_code: data.err_code, 
       message: data.message,
       user: data.username,
-      identity: action.payload.identity,
+      identity: data.identity,
       info: data.info
     })
   }

@@ -4,7 +4,19 @@ import BossInfo from './../pages/BossInfo'
 import UserInfo from './../pages/UserInfo'
 import Boss from './../pages/Boss'
 import User from './../pages/User'
-
+import React from 'react'
+function BossList() {
+  return <div>BossList</div>
+}
+function UserList() {
+  return <div>Userlist</div>
+}
+function Chat() {
+  return <div>Chat</div>
+}
+function Me() {
+  return <div>Me</div>
+}
 const routes = [
   {
     path: '/',
@@ -29,12 +41,46 @@ const routes = [
   {
     path: '/user',
     exact: false,
-    component: User
+    component: User,
+    routes: [
+      {
+        path: '/user/list',
+        exact: false,
+        component: BossList
+      },
+      {
+        path: '/user/chat',
+        exact: false,
+        component: Chat
+      },
+      {
+        path: '/user/me',
+        exact: false,
+        component: Me
+      },
+    ]
   },
   {
     path: '/boss',
     exact: false,
-    component: Boss
+    component: Boss,
+    routes: [
+      {
+        path: '/boss/list',
+        exact: false,
+        component: UserList
+      },
+      {
+        path: '/boss/chat',
+        exact: false,
+        component: Chat
+      },
+      {
+        path: '/boss/me',
+        exact: false,
+        component: Me
+      },
+    ]
   }
 ]
 

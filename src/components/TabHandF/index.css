@@ -1,0 +1,23 @@
+.tabHandF {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+}
+
+
+/* #tab-bar.demo {
+  display: flex;
+  flex-direction: column;
+}
+#tab-bar .demoName {
+  height: 40px;
+}
+#tab-bar .demo-preview-item .am-tab-bar {
+  background-color: white;
+} */
+.am-tab-bar-bar .am-tab-bar-tab-title {
+  font-family: '微软雅黑';
+  font-size: 1.4rem;
+}
+
