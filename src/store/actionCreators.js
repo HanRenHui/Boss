@@ -1,9 +1,10 @@
 import {
   LOGIN_IN,
   UPDATE_INFO,
-  AUTO_PALY,
+  AUTO_UPDATE,
   REQ_USER_LIST,
-  REQ_BOSS_LIST
+  REQ_BOSS_LIST,
+  LOG_OUT
 } from './actionTypes'
 
 export const loginAction = paras => ({
@@ -17,8 +18,9 @@ export const updateActopm = paras => ({
 })
 
 
-export const autoplayAction = () => ({
-  type: AUTO_PALY
+export const autouUpdataAction = (payload) => ({
+  type: AUTO_UPDATE,
+  payload
 })
 
 export const userlistAction = () => ({
@@ -27,4 +29,8 @@ export const userlistAction = () => ({
 
 export const bosslistAction = () => ({
   type: REQ_BOSS_LIST
+})
+
+export const logoutAction = () => ({
+  type: LOG_OUT
 })

@@ -27,10 +27,11 @@ export default class UserList extends Component {
     this.unsubscribe()
   }
   render() {
+    
     return (
       <div className='userlist'>
           {this.state.userList.map((list, index) => (
-          <User list={list} index={index} key={index}/>
+          <User list={list} index={index} key={index} history={this.props.props.history}/>
           ))}
       </div>
     )

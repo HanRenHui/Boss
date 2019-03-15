@@ -5,10 +5,11 @@ export default class TabHandF extends Component {
   render() {
     
     const { tabobj, pathname, redirectTo } = this.props
-    console.log(pathname)
     let barTitle 
     tabobj.forEach(v => {
-      if(v.path === pathname ) barTitle = v.title
+      if(v.path === pathname ){
+        barTitle = v.title
+      } 
     })
     return (
       <div className='tabHandF'>
@@ -16,12 +17,12 @@ export default class TabHandF extends Component {
           style={{position: 'fixed', top: 0, left: 0, width: '100%'}}
           className='navbar'
           mode="dark"
-        >{ barTitle }</NavBar>
+        >{ pathname !== '/boss/me' ? barTitle : '' }</NavBar>
         <TabBar
           className='tab'
           unselectedTintColor="#949494"
           tintColor="#33A3F4"
-          barTintColor="primary"
+          barTintColor="#fff"
         >
           {tabobj.map((v, index) => (
           <TabBar.Item

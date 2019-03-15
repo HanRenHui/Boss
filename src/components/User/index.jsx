@@ -1,10 +1,16 @@
 import React, { Component } from 'react'
 
 export default class User extends Component {
+  handleClick = id => {
+    console.log(this.props.history.push(`/chat/${id}`));
+    
+  }
   render() {
     const { list } = this.props
+    // console.log(this.props.history);
+     
     return (
-      <div className='user'>
+      <div onClick={id => this.handleClick(list._id)}  className='user'>
         <div className='mycard'>
             <div className="card-header">
               <div className="card-header-left">

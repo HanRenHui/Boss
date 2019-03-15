@@ -1,5 +1,6 @@
 export const LOGIN_IN = 'login_in'
 export const UPDATE_INFO = 'updata_info'
-export const AUTO_PALY = 'auto_play'
+export const AUTO_UPDATE = 'auto_play'
 export const REQ_USER_LIST = 'req_user_list'
 export const REQ_BOSS_LIST = 'req_boss-list'
+export const LOG_OUT = 'log_out'

@@ -1,3 +1,7 @@
+import {
+  AUTO_UPDATE,
+  LOG_OUT
+} from './actionTypes'
 let defaultState = {
   // 记录错误码
   errCode: -1,
@@ -16,6 +20,7 @@ let defaultState = {
 
 }
 
+
 // 总结 就算集成了saga， 一开始也是会先走这里的
 function reducer(state = defaultState, action) {
   if(!action) return 
@@ -32,17 +37,23 @@ function reducer(state = defaultState, action) {
       newState.userInfo = action.info
       newState.message=action.message
       return newState 
-    case 'autologin': 
-      newState.message = action.message
-      newState.Author = action.Author
-      newState.identity = action.identity
-      newState.userInfo = action.userInfo
+    case AUTO_UPDATE: 
+      const { payload } = action
+      newState.Author= payload.Author 
+      newState.identity = payload.identity 
+      newState.userInfo = payload.userInfo
       return newState
     case 'USER_LIST': 
       newState.userList = action.userList
       return newState
     case 'BOSS_LIST': 
       newState.bossList = action.bossList 
+      return newState
+    case LOG_OUT:
+      newState.Author = ''
+      newState.avatar = ''
+      newState.identity = ''
+      newState.userInfo = {}
       return newState
     default : 
       newState.errCode = -1 

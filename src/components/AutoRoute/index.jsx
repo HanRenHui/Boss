@@ -1,12 +1,16 @@
 import { Component } from 'react'
 import {
-  autoplayAction
+  autouUpdataAction
 } from './../../store/actionCreators.js'
 import store from './../../store'
 import { withRouter } from 'react-router-dom'
+import { 
+  checkAutoPlay
+} from './../../api/index'
 import {
   Toast
 } from 'antd-mobile'
+
 class AutoRoute extends Component {
   constructor() {
     super() 
@@ -14,40 +18,33 @@ class AutoRoute extends Component {
       isInit: 0
     }
   }
-
   componentWillMount() {
-    this.unsubscribe = store.subscribe(() => {
-      let isInit  = store.getState().userInfo ? 
-                    store.getState().userInfo : 0
-      this.setState({
-        isInit: isInit,
-        Author: store.getState().Author,
-        identity: store.getState().identity,
-        message: store.getState().message
-      }, () => {
-        console.log(0);
-        
-        // if(this.state.Author) {
-        //   // 自动登陆
-        //   let path = this.state.identity === 1 ? '/user' : '/boss'
-        //   this.props.history.push(path)
-          
-        //   Toast.success(this.state.message, 2)
-        // }else {
-        //   // 未登录跳转到登陆页
-        //   this.props.history.push('/')
-        //   Toast.fail('请先登录', 1)
-        // }
-      })
+    checkAutoPlay().then(data => {
+      const result = data.data
+      if(result.err_code === 0) {
+        Toast.success(result.message)
+        let path = result.identity === 1 ? '/user' : '/boss'
+        // 检测是否已经完善信息, 未完善需要跳转到完善信息页面
+        if(!result.userInfo.isInit) {
+          this.props.history.push(`${path}info`)
+        }else {
+          this.props.history.push(`${path}/list`)
+        }
+        store.dispatch(autouUpdataAction({
+          Author: result.Author,
+          identity: result.identity,
+          userInfo: result.userInfo
+        }))
+      }else if(result.err_code === 4){
+        Toast.fail('请先登录')
+        this.props.history.push('/')
+      }else {
+        Toast.fail('服务器错误，请稍后重试')
+        this.props.history.push('/')
+      }
     })
   }
-  componentDidMount() {
-    //自动登陆
-    // store.dispatch(autoplayAction())
-  }
-  componentWillUnmount() {
-    // this.unsubscribe()
-  }
+ 
   render() {
     return null
   }

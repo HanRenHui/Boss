@@ -4,16 +4,11 @@ import BossInfo from './../pages/BossInfo'
 import UserInfo from './../pages/UserInfo'
 import Boss from './../pages/Boss'
 import User from './../pages/User'
-import React from 'react'
 import UserList from './../pages/UserList'
 import BossList from './../pages/BossList'
+import Me from './../pages/Me'
+import Chat from './../pages/Chat'
 
-function Chat() {
-  return <div>Chat</div>
-}
-function Me() {
-  return <div>Me</div>
-}
 const routes = [
   {
     path: '/',
@@ -78,6 +73,11 @@ const routes = [
         component: Me
       },
     ]
+  },
+  {
+    path: '/chat/:id',
+    component: Chat,
+    exact: false
   }
 ]
 

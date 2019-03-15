@@ -2,7 +2,6 @@ import {put, takeEvery, call} from 'redux-saga/effects'
 import {
   LOGIN_IN,
   UPDATE_INFO,
-  AUTO_PALY,
   REQ_USER_LIST,
   REQ_BOSS_LIST
 } from './actionTypes'
@@ -11,7 +10,6 @@ import {
 import {
   login,
   updateInfo,
-  checkAutoPlay,
   reqUserList
 } from './../api/index'
 
@@ -49,24 +47,6 @@ function* watchUpdate(action) {
   }
 }
 
-// 自动登陆
-function* watchAutoPlay() {
-  let result = yield checkAutoPlay() 
-  const { status, data } = result 
-  console.log(data);
-  
-  if(status === 200) {
-    yield put({
-      type: 'autologin',
-      Author: data.Author,
-      identity: data.identity,
-      userInfo: data.userInfo,
-      avatar: data.avatar,
-      message: data.message
-    })
-  }
-}
-
 // 请求大神列表
 function* watchReqUserList() {
   let result = yield reqUserList({
@@ -96,7 +76,6 @@ function* watchReqBossList() {
 function* mySagas() {
   yield takeEvery(LOGIN_IN, watchLogin)
   yield takeEvery(UPDATE_INFO, watchUpdate)
-  yield takeEvery(AUTO_PALY, watchAutoPlay)
   yield takeEvery(REQ_USER_LIST, watchReqUserList)
   yield takeEvery(REQ_BOSS_LIST,watchReqBossList)
 }

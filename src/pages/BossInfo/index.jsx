@@ -29,6 +29,7 @@ export default class BossInfo extends Component {
     }else if(!title || !company || !money || !desc) {
       return Toast.info('请将表单填写完整', 1)
     }
+    this.props.props.history.push('/boss/list')
     store.dispatch(updateActopm({
       pic,
       company, 
@@ -50,8 +51,6 @@ export default class BossInfo extends Component {
         pic: store.getState().avatar,
         info: store.getState().userInfo ? 
               store.getState().userInfo: {}
-      }, () => {
-        this.props.props.history.push('/boss/list')
       })
     })
   }
@@ -91,14 +90,14 @@ export default class BossInfo extends Component {
           mode="dark"
           className='bossBar'
         >请补充BOSS信息</NavBar>
-        <AvatarInfo handleGrid={this.handleGrid}/>
+        <AvatarInfo handleGrid={this.handleGrid} pic={this.state.pic}/>
         <List style={{marginTop: 30}} >
           <InputItem onChange={v => this.onChange('title', v)}>招聘职位</InputItem>
           <InputItem onChange={v => this.onChange('company', v)}>公司名称</InputItem>
           <InputItem onChange={v => this.onChange('money', v)}>招聘薪资</InputItem>
           <TextareaItem autoHeight title='职位要求' onChange={v => this.onChange('desc', v)}/>
         </List>
-        <Button className='saveBtn' onClick={this.handleSubmit}>保存</Button>
+        <Button className='saveBtn' onClick={this.handleSubmit} >保存</Button>
       </div>
     )
   }

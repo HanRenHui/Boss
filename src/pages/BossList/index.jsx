@@ -14,7 +14,6 @@ export default class BossList extends Component {
   }
   componentWillMount() {
     this.unsubscribe = store.subscribe(() => {
-      
       this.setState({
         bossList: store.getState().bossList
       })
@@ -31,7 +30,7 @@ export default class BossList extends Component {
     return (
       <div className='bosslist'>
           {this.state.bossList.map((list, index) => (
-          <User list={list} index={index} key={index}/>
+          <User list={list} index={index} key={index} id={list._id} history={this.props.props.history}/>
           ))}
       </div>
     )
