@@ -1,6 +1,7 @@
 import {
   AUTO_UPDATE,
-  LOG_OUT
+  LOG_OUT,
+  ADD_CHAT_TEXT
 } from './actionTypes'
 let defaultState = {
   // 记录错误码
@@ -15,8 +16,10 @@ let defaultState = {
   // 保存各种信息
   userInfo: {
   },
+  isSocket: 0,
   userList: [],
-  bossList: []
+  bossList: [],
+  chatList: []
 
 }
 
@@ -54,6 +57,15 @@ function reducer(state = defaultState, action) {
       newState.avatar = ''
       newState.identity = ''
       newState.userInfo = {}
+      return newState
+    case ADD_CHAT_TEXT:
+      newState.chatList.push(action.payload)
+      return newState 
+    case 'GetChatList': 
+      newState.chatList = action.data
+      return newState 
+    case 'INIT_SOCKET': 
+      newState.isSocket = 1
       return newState
     default : 
       newState.errCode = -1 

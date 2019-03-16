@@ -11,3 +11,5 @@ export const checkAutoPlay = () => ajax(BASE_URL + '/api/autoplay')
 export const reqUserList = params => ajax(BASE_URL + '/api/user/list', params)
 
 export const logout = () => ajax(BASE_URL + '/api/logout')
+
+export const reqChatList = params => ajax(BASE_URL + '/api/chatlist', params, "POST")

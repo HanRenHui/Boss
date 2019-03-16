@@ -3,14 +3,16 @@ import {
   LOGIN_IN,
   UPDATE_INFO,
   REQ_USER_LIST,
-  REQ_BOSS_LIST
+  REQ_BOSS_LIST,
+  GET_CHAT_LIST
 } from './actionTypes'
 
 // api
 import {
   login,
   updateInfo,
-  reqUserList
+  reqUserList,
+  reqChatList
 } from './../api/index'
 
 
@@ -18,8 +20,6 @@ import {
 function * watchLogin(action) {
   let result = yield call(login, action.payload)
   const { status, data } = result 
-  console.log(data);
-  
   if(status === 200) {
     yield put({
       type: 'LOGIN',
@@ -73,11 +73,30 @@ function* watchReqBossList() {
   }
 }
 
+function* watchGetChatList(payload) {
+  const {from, to} = payload.payload
+  let result = yield reqChatList({
+    from,
+    to
+  })
+  const { data,status } = result 
+  console.log(data);
+  
+  if(status === 200) {
+    yield put({
+      type: 'GetChatList',
+      data: data.data
+    })
+  }
+}
+
+
 function* mySagas() {
   yield takeEvery(LOGIN_IN, watchLogin)
   yield takeEvery(UPDATE_INFO, watchUpdate)
   yield takeEvery(REQ_USER_LIST, watchReqUserList)
   yield takeEvery(REQ_BOSS_LIST,watchReqBossList)
+  yield takeEvery(GET_CHAT_LIST, watchGetChatList)
 }
 
 export default mySagas

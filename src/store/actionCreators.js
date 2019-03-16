@@ -4,7 +4,9 @@ import {
   AUTO_UPDATE,
   REQ_USER_LIST,
   REQ_BOSS_LIST,
-  LOG_OUT
+  LOG_OUT,
+  ADD_CHAT_TEXT,
+  GET_CHAT_LIST
 } from './actionTypes'
 
 export const loginAction = paras => ({
@@ -33,4 +35,14 @@ export const bosslistAction = () => ({
 
 export const logoutAction = () => ({
   type: LOG_OUT
+})
+
+export const chatTextAction = data => ({
+  type: ADD_CHAT_TEXT,
+  payload: data
+})
+
+export const chatlistAction = (payload) => ({
+  type: GET_CHAT_LIST,
+  payload
 })

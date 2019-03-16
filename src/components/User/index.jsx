@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 
 export default class User extends Component {
   handleClick = id => {
-    console.log(this.props.history.push(`/chat/${id}`));
+    console.log(this.props.history.push(`/chats/${id}`));
     
   }
   render() {
