@@ -16,6 +16,7 @@ let defaultState = {
   // 保存各种信息
   userInfo: {
   },
+  
   isSocket: 0,
   userList: [],
   bossList: [],

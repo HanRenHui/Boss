@@ -20,6 +20,7 @@ export default class Me extends Component {
   logout = () => {
     // 清空state数据
     store.dispatch(logoutAction())
+    
     //清空服务端的session
     logout().then(data => {
       this.props.props.history.push('/')

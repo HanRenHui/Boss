@@ -130,6 +130,10 @@ class Login extends Component {
       })
     })
   }
+  componentDidMount() {
+    // 每次进入该页面都改一下二维码
+    this.refs.captcha.src = `http://localhost:1888/captcha?time=${Math.random()}`
+  }
   componentWillUnmount() {
     this.unsubscribe()
   }
@@ -144,7 +148,7 @@ class Login extends Component {
       
       <div className='login'>
         <header>
-          <img src="https://static.zhipin.com/zhipin/v134/web/geek/images/logo-2x.png" style={{width: 280}} alt=""/>
+          <img  src="https://static.zhipin.com/zhipin/v134/web/geek/images/logo-2x.png" style={{width: 280}} alt=""/>
         </header>
         <section className='login-body'>
           <div className='body-content'>
@@ -153,7 +157,7 @@ class Login extends Component {
             <input type="password" onChange={ e =>  this.handleChange(e, 2)} value={password}  placeholder='请输入密码'/>
             <div className='captch'>
               <input type="text" onChange={ e =>  this.handleChange(e, 3)} value={captchaText} placeholder='请输入验证码'/>
-              <img src="http://localhost:1888/captcha" ref='captcha'  onClick={e => this.changeCaptcha(e)} alt=""/>
+              <img  src="http://localhost:1888/captcha" ref='captcha'  onClick={e => this.changeCaptcha(e)} alt=""/>
             </div>
             <Picker  data={mydata} cols={1} {...getFieldProps('district3')} className="forss" onOk={e => this.handleOk(e)}>
               <List.Item arrow="horizontal" className='picker-item'>请选择身份</List.Item>

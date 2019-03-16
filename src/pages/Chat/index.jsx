@@ -18,33 +18,39 @@ export default class Chat extends Component {
     super()
     this.state = {
       text: '',
-      isSocket: 0
+      isSocket: 0,
+      chatList: []
     }
   }
   componentWillMount() {
-    
+    this.unsubscribe = store.subscribe(() => {
+      this.setState({
+        chatList: store.getState().chatList
+      })
+    })
   }
   componentDidMount() {
+    // 每次进入这个页面都会监听一次，所以会造成浏览器端监听多次的情况，在store中
+    // 放一个变量来控制该页面只监听一次
     if(!store.getState().isSocket) {
     store.dispatch({type: 'INIT_SOCKET'})
       socket.on('server message', data => {
         let user_id = store.getState().userInfo._id
         // 筛选服务端传来的信息，看是不是属于这两个用户的
         if(data.from === user_id || data.to === user_id ) {
-          往聊天列表里添加
-          console.log('添加了添加了');
-          
+          // 往聊天列表里添加
           store.dispatch(chatTextAction(data))
         }
       })
     }
-  
-
     // 获取聊天列表
     store.dispatch(chatlistAction({
       from: store.getState().userInfo._id,
       to: this.props.props.match.params.id
     }))
+  }
+  componentWillUnmount() {
+    this.unsubscribe()
   }
   handleKeyDown = e => {
     if(e.keyCode === 13 && this.state.text.length > 0) {
@@ -67,6 +73,11 @@ export default class Chat extends Component {
     // let id = this.props.match.params.id
     return (
       <div className='chat'>
+        <ul>
+          {this.state.chatList.map((list, index) => (
+            <li key={index}>{list.content}</li>
+          ))}
+        </ul>
         <List className='buttom-input'>
           <InputItem
             onKeyDown={e => this.handleKeyDown(e)}
