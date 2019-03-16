@@ -47,7 +47,7 @@ const routes = [
       {
         path: '/user/chat',
         exact: false,
-        component: Chat
+        component: ChatList
       },
       {
         path: '/user/me',

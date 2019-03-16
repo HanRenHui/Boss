@@ -6,7 +6,9 @@ import {
   REQ_BOSS_LIST,
   LOG_OUT,
   ADD_CHAT_TEXT,
-  GET_CHAT_LIST
+  GET_CHAT_LIST,
+  ADD_UN_READ,
+  OFF_LINE_MSG
 } from './actionTypes'
 
 export const loginAction = paras => ({
@@ -45,4 +47,15 @@ export const chatTextAction = data => ({
 export const chatlistAction = (payload) => ({
   type: GET_CHAT_LIST,
   payload
+})
+
+
+export const unreadAction = data => ({
+  type: ADD_UN_READ,
+  data
+})
+
+export const offLineMesAction = id => ({
+  type: OFF_LINE_MSG,
+  payload: id
 })

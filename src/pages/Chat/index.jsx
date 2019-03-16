@@ -21,12 +21,16 @@ export default class Chat extends Component {
       text: '',
       isSocket: 0,
       chatList: [],
+      userInfo: {},
+      userList: []
     }
   }
   componentWillMount() {
     this.unsubscribe = store.subscribe(() => {
       this.setState({
-        chatList: store.getState().chatList
+        chatList: store.getState().chatList,
+        userInfo: store.getState().userInfo,
+        userList: store.getStaee
       })
     })
   }
@@ -45,6 +49,7 @@ export default class Chat extends Component {
       })
     }
     // 获取聊天列表
+    
     store.dispatch(chatlistAction({
       from: store.getState().userInfo._id,
       to: this.props.props.match.params.id
@@ -90,6 +95,7 @@ export default class Chat extends Component {
       <div className='chat'>
         <NavBar
           mode="dark"
+          style={{position: 'fixed', left: 0, top: 0, width: '100%'}}
           leftContent={
             <Icon type='left' onClick={() => this.back()}></Icon>
           }

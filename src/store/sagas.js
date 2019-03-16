@@ -4,7 +4,8 @@ import {
   UPDATE_INFO,
   REQ_USER_LIST,
   REQ_BOSS_LIST,
-  GET_CHAT_LIST
+  GET_CHAT_LIST,
+  OFF_LINE_MSG
 } from './actionTypes'
 
 // api
@@ -12,8 +13,10 @@ import {
   login,
   updateInfo,
   reqUserList,
-  reqChatList
+  reqUnreadMsg,
+  reqChatList,
 } from './../api/index'
+
 
 
 // 登陆
@@ -80,8 +83,6 @@ function* watchGetChatList(payload) {
     to
   })
   const { data,status } = result 
-  console.log(data);
-  
   if(status === 200) {
     yield put({
       type: 'GetChatList',
@@ -90,6 +91,19 @@ function* watchGetChatList(payload) {
   }
 }
 
+function* watchGetOfflineMsg(action) {
+  console.log(action.payload);
+  let { userId } = action.payload 
+  let result = yield reqUnreadMsg({userId})
+  const { data, status } = result 
+  if(status === 200) {
+    yield put({
+      type: 'OFF_LINE_MSG',
+      unreadMsg: data.unreadMsg
+    })
+  }
+
+}
 
 function* mySagas() {
   yield takeEvery(LOGIN_IN, watchLogin)
@@ -97,6 +111,7 @@ function* mySagas() {
   yield takeEvery(REQ_USER_LIST, watchReqUserList)
   yield takeEvery(REQ_BOSS_LIST,watchReqBossList)
   yield takeEvery(GET_CHAT_LIST, watchGetChatList)
+  yield takeEvery(OFF_LINE_MSG, watchGetOfflineMsg)
 }
 
 export default mySagas

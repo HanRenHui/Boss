@@ -2,27 +2,30 @@ import React, { Component } from 'react'
 import TabHandF from './../../components/TabHandF'
 import { Route } from 'react-router-dom'
 import UserList from './../UserList'
-function Profile() {
-  return <div>个人中心</div>
-}
-
-
-function TextList() {
-  return <div>TextList</div>
-}
+import io from 'socket.io-client'
+import store from './../../store'
+import {
+  unreadAction
+} from './../../store/actionCreators'
+const socket = io('ws://localhost:1888')
 
 export default class Boss extends Component {
   redirectTo = path => {
     this.props.props.history.push(path)
   }
-
+  componentDidMount() {
+    socket.on('server message', data => {
+      // 未读数加一
+      store.dispatch(unreadAction(data))
+      
+    })
+  }
   render() {
     
     const tabObj = [
       {
         title: '大神列表',
         path: '/boss/list',
-        component: UserList,
         text: '大神',
         imgUrl: 'job',
         activeUrl: 'job-active'        
@@ -30,7 +33,6 @@ export default class Boss extends Component {
       {
         title: '消息列表',
         path: '/boss/chat',
-        component: TextList,
         text: '消息' ,
         imgUrl: 'msg',
         activeUrl: 'msg-active'        
@@ -38,13 +40,14 @@ export default class Boss extends Component {
       {
         title: '个人中心',
         path: '/boss/me',
-        component: Profile,
         text: '我的',
         imgUrl: 'user',
         activeUrl: 'user-active' 
       }
     ]
+
     return (
+      
       <div className='boss'>
 
         <TabHandF 
@@ -54,10 +57,10 @@ export default class Boss extends Component {
           />
         {this.props.routes.map((route, index) => (
           <Route
-          path={route.path} 
-          key={index} 
-          exact={route.exact} 
-          render={(props) => <route.component props={props} routes={route.routes} />}
+            path={route.path} 
+            key={index} 
+            exact={route.exact} 
+            render={(props) => <route.component props={props} routes={route.routes} />}
          />
         ))}
         

@@ -1,29 +1,24 @@
 import React, { Component } from 'react'
 import TabHandF from './../../components/TabHandF'
 import { Route } from 'react-router-dom'
-function Profile() {
-  return <div>个人中心</div>
-}
+import io  from 'socket.io-client'
 
-function UserList() {
-  return <div>UserList</div>
-}
-function TextList() {
-  return <div>TextList</div>
-}
 
 export default class User extends Component {
   redirectTo = path => {
     this.props.props.history.push(path)
   }
-
+  componentDidMount() {
+    let socket = io('ws://localhost:1888')
+    socket.on('server message', data => {
+      console.log(data)
+    })
+  }
   render() {
-    
     const tabObj = [
       {
         title: 'BOSS列表',
         path: '/user/list',
-        component: UserList,
         text: '大神',
         imgUrl: 'job',
         activeUrl: 'job-active'        
@@ -31,7 +26,6 @@ export default class User extends Component {
       {
         title: '消息列表',
         path: '/user/chat',
-        component: TextList,
         text: '消息' ,
         imgUrl: 'msg',
         activeUrl: 'msg-active'        
@@ -39,7 +33,6 @@ export default class User extends Component {
       {
         title: '个人中心',
         path: '/user/me',
-        component: Profile,
         text: '我的',
         imgUrl: 'user',
         activeUrl: 'user-active' 

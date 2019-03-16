@@ -1,7 +1,8 @@
 import {
   AUTO_UPDATE,
   LOG_OUT,
-  ADD_CHAT_TEXT
+  ADD_CHAT_TEXT,
+  ADD_UN_READ
 } from './actionTypes'
 let defaultState = {
   // 记录错误码
@@ -16,11 +17,16 @@ let defaultState = {
   // 保存各种信息
   userInfo: {
   },
-  
+  // 聊天页的
   isSocket: 0,
+  // 一级路由页的
+  isSocket2: 0,
   userList: [],
   bossList: [],
-  chatList: []
+  // 消息列表
+  chatList: [],
+  // 记录未读信息各种信息
+  unReadMsg: 0
 
 }
 
@@ -51,7 +57,7 @@ function reducer(state = defaultState, action) {
       newState.userList = action.userList
       return newState
     case 'BOSS_LIST': 
-      newState.bossList = action.bossList 
+      newState.userList = action.bossList 
       return newState
     case LOG_OUT:
       newState.Author = ''
@@ -68,6 +74,13 @@ function reducer(state = defaultState, action) {
     case 'INIT_SOCKET': 
       newState.isSocket = 1
       return newState
+    case ADD_UN_READ: 
+      newState.unReadMsg += 1
+      return newState
+    case 'OFF_LINE_MSG': 
+      // action unReadMsg 里有你所有想要的
+      newState.unReadMsg = action.unreadMsg.length
+      return newState 
     default : 
       newState.errCode = -1 
       return newState 

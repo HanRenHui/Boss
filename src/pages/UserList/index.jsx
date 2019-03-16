@@ -3,31 +3,32 @@ import store from './../../store'
 import './index.css'
 import User from './../../components/User'
 import {
-  userlistAction
+  userlistAction,
 } from './../../store/actionCreators'
 export default class UserList extends Component {
   constructor() {
     super()
     this.state = {
-      userList: []
+      userList: [],
     }
   }
   componentWillMount() {
     this.unsubscribe = store.subscribe(() => {
       
       this.setState({
-        userList: store.getState().userList
+        userList: store.getState().userList,
       })
     })
   }
   componentDidMount() {
+    
     store.dispatch(userlistAction())
+
   }
   componentWillUnmount() {
     this.unsubscribe()
   }
   render() {
-    
     return (
       <div className='userlist'>
           {this.state.userList.map((list, index) => (
