@@ -8,6 +8,10 @@ import UserList from './../pages/UserList'
 import BossList from './../pages/BossList'
 import Me from './../pages/Me'
 import Chat from './../pages/Chat'
+import React from 'react'
+function ChatList() {
+  return <div>chatlist</div>
+}
 
 const routes = [
   {
@@ -65,7 +69,7 @@ const routes = [
       {
         path: '/boss/chat',
         exact: false,
-        component: Chat
+        component: ChatList
       },
       {
         path: '/boss/me',

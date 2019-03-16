@@ -10,6 +10,7 @@ import {
   chatlistAction
 } from './../../store/actionCreators'
 import store from './../../store'
+import { NavBar, Icon } from 'antd-mobile'
 const socket = io('ws://localhost:1888')
 
 
@@ -19,7 +20,7 @@ export default class Chat extends Component {
     this.state = {
       text: '',
       isSocket: 0,
-      chatList: []
+      chatList: [],
     }
   }
   componentWillMount() {
@@ -69,14 +70,47 @@ export default class Chat extends Component {
       text: val
     })
   }
+  back = () => {
+    this.props.props.history.goBack()
+    // console.log(this.props.props.history);
+    
+  }
   render() {
     // let id = this.props.match.params.id
+    let classname
+    // 找出other的头像
+    let userIndex = store.getState().userList.findIndex(list => {
+      return list._id === this.props.props.match.params.id
+    })
+    let chatName = store.getState().userList[userIndex] ? store.getState().userList[userIndex].user: ''
+    let avatar = ''
+    console.log(store.getState().userInfo.avatar);
+    
     return (
       <div className='chat'>
+        <NavBar
+          mode="dark"
+          leftContent={
+            <Icon type='left' onClick={() => this.back()}></Icon>
+          }
+        >{chatName}</NavBar>
         <ul>
-          {this.state.chatList.map((list, index) => (
-            <li key={index}>{list.content}</li>
-          ))}
+          {this.state.chatList.map((list, index) => {
+            store.getState().userInfo._id === list.from ? classname = 'text my' : classname = 'text other'
+            store.getState().userInfo._id === list.from ? 
+            avatar = store.getState().userInfo.avatar :
+            avatar = store.getState().userList[userIndex].avatar
+
+            return(
+              <li key={index} className={classname}>
+                <span className='textbox'>
+                  <img src={avatar} alt=""/>
+                  <span className='text-content'>{list.content}</span>
+                </span>
+                
+              </li>
+            ) 
+          })}
         </ul>
         <List className='buttom-input'>
           <InputItem
