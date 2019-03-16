@@ -2,6 +2,11 @@ import React, { Component } from 'react'
 import TabHandF from './../../components/TabHandF'
 import { Route } from 'react-router-dom'
 import io  from 'socket.io-client'
+import store from './../../store'
+import {
+  unreadAction
+} from './../../store/actionCreators'
+const socket = io('ws://localhost:1888')
 
 
 export default class User extends Component {
@@ -9,10 +14,14 @@ export default class User extends Component {
     this.props.props.history.push(path)
   }
   componentDidMount() {
-    let socket = io('ws://localhost:1888')
-    socket.on('server message', data => {
-      console.log(data)
-    })
+    if(!store.getState().isSocket2) {
+      store.dispatch({
+        type: 'initsocket'
+      })
+      socket.on('server message', data => {
+        store.dispatch(unreadAction(data))
+      })
+    }
   }
   render() {
     const tabObj = [

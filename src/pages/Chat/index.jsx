@@ -10,15 +10,16 @@ import {
   chatlistAction
 } from './../../store/actionCreators'
 import store from './../../store'
-import { NavBar, Icon } from 'antd-mobile'
-const socket = io('ws://localhost:1888')
+import { NavBar, Icon, Grid } from 'antd-mobile'
 
+const socket = io('ws://localhost:1888')
 
 export default class Chat extends Component {
   constructor() {
     super()
     this.state = {
       text: '',
+      show: false,
       isSocket: 0,
       chatList: [],
       userInfo: {},
@@ -80,6 +81,14 @@ export default class Chat extends Component {
     // console.log(this.props.props.history);
     
   }
+  showEmoj = () => {
+    setTimeout(() => {
+      window.dispatchEvent(new Event('resize'))
+    }, 0)
+    this.setState({
+      show: !this.state.show
+    })
+  }
   render() {
     // let id = this.props.match.params.id
     let classname
@@ -89,9 +98,20 @@ export default class Chat extends Component {
     })
     let chatName = store.getState().userList[userIndex] ? store.getState().userList[userIndex].user: ''
     let avatar = ''
-    console.log(store.getState().userInfo.avatar);
-    
+    const data = [
+      '😀', '😁', '😂', '🤣', '😃', '😄', '😅', '😆', '😉', '😊',
+      '😋', '😎', '😍', '😘', '😗', '😙', '😚', '🙂', '🤗', '🤩', 
+      '🤔', '🤨', '😐', '😑', '😶', '🙄', '😏', '😣', '😥', '😮',
+      '🤐', '😯', '😪', '😫', '😴', '😌', '😛', '😜', '😝', '🤤',
+      '😒', '😓', '😔', '😕', '🙃', '🤑', '😲', '🙁', '😖', '😞',
+      '😟', '😤', '😢', '😭', '😦', '😧', '😨', '😩', '🤯', '😬',
+      '😰', '😱', '😳', '🤪', '😵', '😡', '😠', '🤬', '😷', '🤒',
+      '🤕', '🤢', '🤮', '🤧', '😇', '🤠', '🤡', '🤥', '🤫', '🤭',
+      '🧐', '🤓', '😈', '👿', '👹', '👺', '💀', '👻', '👽', '🤖',
+      '💩', '😺', '😸', '😹', '😻', '😼', '😽', '🙀', '😿', '😾'
+    ].map(v => ({text: v}))
     return (
+
       <div className='chat'>
         <NavBar
           mode="dark"
@@ -124,8 +144,29 @@ export default class Chat extends Component {
             value={this.state.text}
             onChange={val => this.handleChange(val)}
             placeholder="回车键即发送"
-            extra="发送"
+            extra={
+              <div>
+                <span style={{fontSize: 18, marginRight: 10}} onClick={this.showEmoj}>😋</span>
+                <span>发送</span>
+              </div>
+            }
           ></InputItem>
+          {this.state.show ? 
+            <Grid 
+              data={data} 
+              isCarousel 
+              onClick={_el => {
+                this.setState({
+                  text: this.state.text + _el.text
+                })
+              }} 
+              columnNum={9}
+              carouselMaxRow={4}
+            /> :
+            null
+          }
+        
+
         </List>
       </div>
     )

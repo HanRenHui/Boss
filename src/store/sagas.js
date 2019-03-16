@@ -91,10 +91,8 @@ function* watchGetChatList(payload) {
   }
 }
 
-function* watchGetOfflineMsg(action) {
-  console.log(action.payload);
-  let { userId } = action.payload 
-  let result = yield reqUnreadMsg({userId})
+function* watchGetOfflineMsg() {
+  let result = yield reqUnreadMsg()
   const { data, status } = result 
   if(status === 200) {
     yield put({

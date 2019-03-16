@@ -14,5 +14,5 @@ export const logout = () => ajax(BASE_URL + '/api/logout')
 
 export const reqChatList = params => ajax(BASE_URL + '/api/chatlist', params, "POST")
 
-export const reqUnreadMsg = (params) => ajax(BASE_URL + '/api/unread', params)
+export const reqUnreadMsg = () => ajax(BASE_URL + '/api/unread')
 

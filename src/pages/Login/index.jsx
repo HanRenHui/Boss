@@ -91,8 +91,6 @@ class Login extends Component {
   }
   redirect = () => {
     const { identity } = store.getState()
-    console.log(identity);
-    
     if(identity === 1) {
       // redirect to userpage
       this.jumpTo('user')

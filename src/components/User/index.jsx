@@ -7,8 +7,6 @@ export default class User extends Component {
   }
   render() {
     const { list } = this.props
-    // console.log(this.props.history);
-     
     return (
       <div onClick={id => this.handleClick(list._id)}  className='user'>
         <div className='mycard'>
@@ -24,7 +22,6 @@ export default class User extends Component {
                 <div key={key}>{d}</div>
               ))}
             </div>
-            {/* <Card.Footer content="footer content" extra={<div>extra footer content</div>} /> */}
           </div>
       </div>
     )

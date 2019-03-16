@@ -55,7 +55,6 @@ export const unreadAction = data => ({
   data
 })
 
-export const offLineMesAction = id => ({
+export const offLineMesAction = () => ({
   type: OFF_LINE_MSG,
-  payload: id
 })

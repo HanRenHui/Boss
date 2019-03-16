@@ -1,7 +1,6 @@
 import React, { Component } from 'react'
 import TabHandF from './../../components/TabHandF'
 import { Route } from 'react-router-dom'
-import UserList from './../UserList'
 import io from 'socket.io-client'
 import store from './../../store'
 import {
@@ -14,12 +13,16 @@ export default class Boss extends Component {
     this.props.props.history.push(path)
   }
   componentDidMount() {
-    socket.on('server message', data => {
-      // 未读数加一
-      store.dispatch(unreadAction(data))
-      
-    })
+    if(!store.getState().isSocket2) {
+      store.dispatch({
+        type: 'initsocket'
+      })
+      socket.on('server message', data => {
+        store.dispatch(unreadAction(data))
+      })
+    }
   }
+  
   render() {
     
     const tabObj = [

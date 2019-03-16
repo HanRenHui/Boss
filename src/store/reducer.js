@@ -4,6 +4,7 @@ import {
   ADD_CHAT_TEXT,
   ADD_UN_READ
 } from './actionTypes'
+
 let defaultState = {
   // 记录错误码
   errCode: -1,
@@ -17,16 +18,16 @@ let defaultState = {
   // 保存各种信息
   userInfo: {
   },
-  // 聊天页的
+  // 聊天页的 防止多次舰艇
   isSocket: 0,
-  // 一级路由页的
+  // 一级路由页的 防止多次监听
   isSocket2: 0,
   userList: [],
-  bossList: [],
+  // bossList: [],
   // 消息列表
   chatList: [],
   // 记录未读信息各种信息
-  unReadMsg: 0
+  unReadMsg: []
 
 }
 
@@ -73,13 +74,18 @@ function reducer(state = defaultState, action) {
       return newState 
     case 'INIT_SOCKET': 
       newState.isSocket = 1
+      return newState 
+    case 'initsocket': 
+      console.log(1);
+      
+      newState.isSocket2 = 1
       return newState
     case ADD_UN_READ: 
-      newState.unReadMsg += 1
+      newState.unReadMsg.push(action.data)
       return newState
     case 'OFF_LINE_MSG': 
       // action unReadMsg 里有你所有想要的
-      newState.unReadMsg = action.unreadMsg.length
+      newState.unReadMsg = action.unreadMsg
       return newState 
     default : 
       newState.errCode = -1 

@@ -5,11 +5,26 @@ import store from './../../store'
 import {
   offLineMesAction
 } from './../../store/actionCreators'
-import { connect } from 'react-redux'
 
-class TabHandF extends Component {
-  componentDidUpdate() {
-    this.props.getOffLineMsg(this.props.user_id)
+export default class TabHandF extends Component {
+  constructor() {
+    super() 
+    this.state = {
+      unread: 0,
+    }
+  }
+  componentWillMount() {
+    this.unsubscribe = store.subscribe(() => {
+      this.setState({
+        unread: store.getState().unReadMsg.length
+      })
+    })
+  }
+  componentWillUnmount() {
+    this.unsubscribe()
+  }
+  componentDidMount() {
+    store.dispatch(offLineMesAction())
   }
   render() {
     const { tabobj, pathname, redirectTo } = this.props
@@ -19,6 +34,8 @@ class TabHandF extends Component {
         barTitle = v.title
       } 
     })
+    console.log(this.state.unread);
+    
     return (
       <div className='tabHandF'>
        <NavBar
@@ -34,7 +51,7 @@ class TabHandF extends Component {
         >
           {tabobj.map((v, index) => (
           <TabBar.Item 
-            badge={(v.text === '消息' && this.props.unread > 0) ? this.props.unread : ''}
+            badge={(v.text === '消息' && this.state.unread > 0) ? this.state.unread : ''}
             className='tabitem'
             title={v.text}
             key={index}
@@ -59,15 +76,3 @@ class TabHandF extends Component {
   }
 }
 
-const mapStateToprops = state => ({
-  unread: state.unReadMsg,
-  user_id: state.userInfo._id
-})
-const mapDispatchToProps = dispatch => ({
-  getOffLineMsg: id => {
-    dispatch(offLineMesAction({
-      userId: id
-    }))
-  }
-})
-export default connect(mapStateToprops, mapDispatchToProps)(TabHandF)
