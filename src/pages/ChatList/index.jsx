@@ -90,21 +90,32 @@ export default class ChatList extends Component {
   findEachNoReadNum = obj => {
     let numArr = []
     for(let key in obj) {
-      let tempArr = 0      
+      let tempNum = 0      
       for(let i=0; i<obj[key].length; i++) {
-        if(obj[key][i].to === store.getState().userInfo._id) {
-          tempArr += 1
+        if((obj[key][i].to === store.getState().userInfo._id) && (!obj[key][i].read)) {
+          tempNum += 1
         }
       }
-      numArr.push(tempArr)
+      numArr.push(tempNum)
     }
     return numArr
+  }
+  sortMsgByTime = obj => {
+    let tempObj = {}
+    for(let k in obj) {
+      let msgArr = obj[k]
+      tempObj[k] = msgArr.sort((a, b) => {
+        return a.create_time > b.create_time
+      })
+    }
+    return tempObj
   }
   render() {
     // 将所有信息按照用户分组
     let arr = this.groupArr()
     let obj = this.groupObj(arr)
-    
+    //对
+    obj = this.sortMsgByTime(obj)
     // 查询用户名和头像
     const { nameArr, avatarArr, idArr } = this.findNA(obj)
     

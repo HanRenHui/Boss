@@ -16,3 +16,4 @@ export const reqChatList = params => ajax(BASE_URL + '/api/chatlist', params, "P
 
 export const reqUnreadMsg = () => ajax(BASE_URL + '/api/unread')
 
+export const reqReadMsg = params => ajax(BASE_URL + '/api/readmsg', params)

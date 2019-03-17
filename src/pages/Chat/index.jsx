@@ -7,7 +7,8 @@ import {
 } from 'antd-mobile'
 import {
   chatTextAction,
-  chatlistAction
+  chatlistAction,
+  readMsgAction
 } from './../../store/actionCreators'
 import store from './../../store'
 import { NavBar, Icon, Grid } from 'antd-mobile'
@@ -55,10 +56,20 @@ export default class Chat extends Component {
       from: store.getState().userInfo._id,
       to: this.props.props.match.params.id
     }))
+
+    // 通知后端将信息改为已读
+    store.dispatch(readMsgAction({
+      to: this.props.props.match.params.id
+    }))
   }
   componentWillUnmount() {
+    store.dispatch(readMsgAction({
+      to: this.props.props.match.params.id
+    }))
     this.unsubscribe()
+
   }
+  
   handleKeyDown = e => {
     if(e.keyCode === 13 && this.state.text.length > 0) {
       socket.emit('client message', {

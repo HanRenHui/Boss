@@ -10,3 +10,5 @@ export const GET_CHAT_LIST = 'get_chat_list'
 export const ADD_UN_READ = 'add_un_read'
 
 export const OFF_LINE_MSG = 'off_line_msg'
+
+export const READ_MSG = 'reag_msg'

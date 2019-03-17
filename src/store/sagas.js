@@ -5,7 +5,8 @@ import {
   REQ_USER_LIST,
   REQ_BOSS_LIST,
   GET_CHAT_LIST,
-  OFF_LINE_MSG
+  OFF_LINE_MSG,
+  READ_MSG
 } from './actionTypes'
 
 // api
@@ -15,6 +16,7 @@ import {
   reqUserList,
   reqUnreadMsg,
   reqChatList,
+  reqReadMsg
 } from './../api/index'
 
 
@@ -104,6 +106,11 @@ function* watchGetOfflineMsg() {
   }
 
 }
+function* watchReadMsg(action) {
+  // console.log(action);
+  let to = action.payload.to
+  yield reqReadMsg({to})
+}
 
 function* mySagas() {
   yield takeEvery(LOGIN_IN, watchLogin)
@@ -112,6 +119,8 @@ function* mySagas() {
   yield takeEvery(REQ_BOSS_LIST,watchReqBossList)
   yield takeEvery(GET_CHAT_LIST, watchGetChatList)
   yield takeEvery(OFF_LINE_MSG, watchGetOfflineMsg)
+  yield takeEvery(READ_MSG, watchReadMsg)
+
 }
 
 export default mySagas

@@ -8,7 +8,8 @@ import {
   ADD_CHAT_TEXT,
   GET_CHAT_LIST,
   ADD_UN_READ,
-  OFF_LINE_MSG
+  OFF_LINE_MSG,
+  READ_MSG
 } from './actionTypes'
 
 export const loginAction = paras => ({
@@ -57,4 +58,9 @@ export const unreadAction = data => ({
 
 export const offLineMesAction = () => ({
   type: OFF_LINE_MSG,
+})
+
+export const readMsgAction = to => ({
+  type: READ_MSG,
+  payload: to
 })

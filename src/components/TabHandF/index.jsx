@@ -38,7 +38,8 @@ export default class TabHandF extends Component {
     })
     let num = 0
     for(let i=0; i<this.state.unread.length; i++) {
-      if(this.state.unread[i].from !== this.state.userId) {
+
+      if((this.state.unread[i].from !== this.state.userId) && (!this.state.unread[i].read)) {
         num ++
       }
     }
