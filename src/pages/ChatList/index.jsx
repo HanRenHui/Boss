@@ -59,6 +59,8 @@ export default class ChatList extends Component {
     let avatarArr = []
     // 装所有的用户名
     let nameArr = []
+    // 装所有id
+    let idArr = []
     for(let key in obj) {
       let msgArr = obj[key]
       for(let i=0; i<msgArr.length; i++) {
@@ -69,6 +71,7 @@ export default class ChatList extends Component {
             if(info._id === from) {
               avatarArr.push(info.avatar)
               nameArr.push(info.user)
+              idArr.push(info._id)
             } 
           })
           break
@@ -77,8 +80,12 @@ export default class ChatList extends Component {
     }
     return {
       avatarArr,
-      nameArr
+      nameArr,
+      idArr
     }
+  }
+  handleClick = id => {
+    this.props.props.history.push(`/chats/${id}`)
   }
   findEachNoReadNum = obj => {
     let numArr = []
@@ -97,25 +104,30 @@ export default class ChatList extends Component {
     // 将所有信息按照用户分组
     let arr = this.groupArr()
     let obj = this.groupObj(arr)
+    
     // 查询用户名和头像
-    const { nameArr, avatarArr } = this.findNA(obj)
-    console.log(obj);
+    const { nameArr, avatarArr, idArr } = this.findNA(obj)
+    
     let numArr = this.findEachNoReadNum(obj)
     return (
       <div className='chatlist'>
-        <ul>
-          {arr.map((list, index) => (
-            <li key={index} className='list-item'> 
-              <img src={avatarArr[index]} alt=""/>
-              <div className='list-item-right'>
-                <p className='list-item-right-top'>{nameArr[index]}</p>
-                <p className='list-item-right-bottom'>{obj[index][obj[index].length-1].content}</p>
-              </div>
-              <span className='list-item-num'>{numArr[index]}</span>
-            </li>
-          ))}
-          
-        </ul>
+        {nameArr.length > 0 ? 
+            <ul>
+              {arr.map((list, index) => (
+                <li key={index} className='list-item' onClick={() => this.handleClick(idArr[index])}> 
+                  <img src={avatarArr[index]} alt=""/>
+                  <div className='list-item-right'>
+                    <p className='list-item-right-top'>{nameArr[index]}</p>
+                    <p className='list-item-right-bottom'>{obj[index][obj[index].length-1].content}</p>
+                  </div>
+                  {numArr[index] > 0 ? <span className='list-item-num'>{numArr[index]}</span> : null }
+                  
+                </li>
+              ))}
+            </ul> : 
+            null
+        }
+       
       </div>
     )
   }

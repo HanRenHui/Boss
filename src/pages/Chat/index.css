@@ -8,7 +8,7 @@
   box-sizing: border-box;
   padding: 5rem 2rem;
 }
-ul li {
+.chat ul li {
   list-style: none;
 }
 

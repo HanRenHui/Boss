@@ -24,10 +24,10 @@
   font-family: '微软雅黑';
   margin-top: 1rem;
 }
-.right {
+.me .right {
   width: 30%;
 }
-.right img {
+.me .right img {
   width: 6rem;
   border-radius: 50%;
 }
@@ -50,15 +50,19 @@
 
 .me ul.unlessul li .text {
   margin-top: .5rem;
+  text-align: center;
 }
-.personal {
+.me ul.unlessul li .num {
+  margin-top: 1rem;
+}
+.me .personal {
   margin: 3rem 0 1rem 1rem;
   font-family: "微软雅黑";
   font-size: 2rem;
 }
-.desc {
+.me .desc {
   width: 100%;
 }
-.logout {
+.me .logout {
   margin: 5rem auto 0 auto;
 }
