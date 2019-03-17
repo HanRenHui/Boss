@@ -94,10 +94,12 @@ function* watchGetChatList(payload) {
 function* watchGetOfflineMsg() {
   let result = yield reqUnreadMsg()
   const { data, status } = result 
+  
   if(status === 200) {
     yield put({
       type: 'OFF_LINE_MSG',
-      unreadMsg: data.unreadMsg
+      unreadMsg: [...data.from_msg, ...data.to_msg],
+      otherInfo: data.otherInfo
     })
   }
 

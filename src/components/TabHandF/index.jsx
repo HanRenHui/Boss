@@ -11,12 +11,14 @@ export default class TabHandF extends Component {
     super() 
     this.state = {
       unread: 0,
+      userId: ''
     }
   }
   componentWillMount() {
     this.unsubscribe = store.subscribe(() => {
       this.setState({
-        unread: store.getState().unReadMsg.length
+        unread: store.getState().unReadMsg,
+        userId: store.getState().userInfo._id
       })
     })
   }
@@ -34,7 +36,13 @@ export default class TabHandF extends Component {
         barTitle = v.title
       } 
     })
-    console.log(this.state.unread);
+    let num = 0
+    for(let i=0; i<this.state.unread.length; i++) {
+      if(this.state.unread[i].from !== this.state.userId) {
+        num ++
+      }
+    }
+    // console.log(this.state.unread);
     
     return (
       <div className='tabHandF'>
@@ -51,7 +59,7 @@ export default class TabHandF extends Component {
         >
           {tabobj.map((v, index) => (
           <TabBar.Item 
-            badge={(v.text === '消息' && this.state.unread > 0) ? this.state.unread : ''}
+            badge={(v.text === '消息' && num > 0) ? num : ''}
             className='tabitem'
             title={v.text}
             key={index}

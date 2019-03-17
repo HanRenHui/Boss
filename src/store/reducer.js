@@ -27,7 +27,9 @@ let defaultState = {
   // 消息列表
   chatList: [],
   // 记录未读信息各种信息
-  unReadMsg: []
+  unReadMsg: [],
+  // 记录其他用户的信息
+  otherInfo: []
 
 }
 
@@ -76,8 +78,6 @@ function reducer(state = defaultState, action) {
       newState.isSocket = 1
       return newState 
     case 'initsocket': 
-      console.log(1);
-      
       newState.isSocket2 = 1
       return newState
     case ADD_UN_READ: 
@@ -86,6 +86,7 @@ function reducer(state = defaultState, action) {
     case 'OFF_LINE_MSG': 
       // action unReadMsg 里有你所有想要的
       newState.unReadMsg = action.unreadMsg
+      newState.otherInfo = action.otherInfo
       return newState 
     default : 
       newState.errCode = -1 
