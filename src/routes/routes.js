@@ -3,16 +3,10 @@ import Login from './../pages/Login'
 import BossInfo from './../pages/BossInfo'
 import UserInfo from './../pages/UserInfo'
 import Boss from './../pages/Boss'
-import User from './../pages/User'
-import UserList from './../pages/UserList'
 import BossList from './../pages/BossList'
 import Me from './../pages/Me'
 import Chat from './../pages/Chat'
-import React from 'react'
-function ChatList() {
-  return <div>chatlist</div>
-}
-
+import ChatList from './../pages/ChatList'
 const routes = [
   {
     path: '/',
@@ -35,9 +29,31 @@ const routes = [
     component: UserInfo
   },
   {
+    path: '/boss',
+    exact: false,
+    component: Boss,
+    routes: [
+      {
+        path: '/boss/list',
+        exact: false,
+        component: BossList
+      },
+      {
+        path: '/boss/chat',
+        exact: false,
+        component: ChatList
+      },
+      {
+        path: '/boss/me',
+        exact: false,
+        component: Me
+      },
+    ]
+  },
+  {
     path: '/user',
     exact: false,
-    component: User,
+    component: Boss,
     routes: [
       {
         path: '/user/list',
@@ -51,28 +67,6 @@ const routes = [
       },
       {
         path: '/user/me',
-        exact: false,
-        component: Me
-      },
-    ]
-  },
-  {
-    path: '/boss',
-    exact: false,
-    component: Boss,
-    routes: [
-      {
-        path: '/boss/list',
-        exact: false,
-        component: UserList
-      },
-      {
-        path: '/boss/chat',
-        exact: false,
-        component: ChatList
-      },
-      {
-        path: '/boss/me',
         exact: false,
         component: Me
       },

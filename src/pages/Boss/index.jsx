@@ -25,7 +25,7 @@ export default class Boss extends Component {
   
   render() {
     
-    const tabObj = [
+    const tabObj1 = [
       {
         title: '大神列表',
         path: '/boss/list',
@@ -48,13 +48,43 @@ export default class Boss extends Component {
         activeUrl: 'user-active' 
       }
     ]
-
+    const tabObj2 = [
+      {
+        title: 'BOSS列表',
+        path: '/user/list',
+        text: '大神',
+        imgUrl: 'job',
+        activeUrl: 'job-active'        
+      },
+      {
+        title: '消息列表',
+        path: '/user/chat',
+        text: '消息' ,
+        imgUrl: 'msg',
+        activeUrl: 'msg-active'        
+      },
+      {
+        title: '个人中心',
+        path: '/user/me',
+        text: '我的',
+        imgUrl: 'user',
+        activeUrl: 'user-active' 
+      }
+    ]
+    let pathname = this.props.props.location.pathname
+    let tabobj 
+    if(pathname.includes('/boss')) {
+      tabobj = tabObj1
+    }else if(pathname.includes('/user')) {
+      tabobj = tabObj2
+    }
+    
     return (
       
       <div className='boss'>
 
         <TabHandF 
-            tabobj={tabObj} 
+            tabobj={tabobj} 
             pathname={this.props.props.location.pathname}
             redirectTo={this.redirectTo}
           />

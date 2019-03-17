@@ -4,6 +4,7 @@ import './index.css'
 import User from './../../components/User'
 import {
   bosslistAction,
+  userlistAction
 } from './../../store/actionCreators'
 export default class BossList extends Component {
   constructor() {
@@ -21,7 +22,12 @@ export default class BossList extends Component {
   }
   componentDidMount() {
     // 获取列表
-    store.dispatch(bosslistAction())
+    let pathname = this.props.props.location.pathname
+    if(pathname === '/boss/list') {
+      store.dispatch(userlistAction())
+    }else if(pathname === '/user/list') {
+      store.dispatch(bosslistAction())
+    }
     
   }
   componentWillUnmount() {
