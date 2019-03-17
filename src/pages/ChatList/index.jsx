@@ -61,14 +61,9 @@ export default class ChatList extends Component {
     let nameArr = []
     for(let key in obj) {
       let msgArr = obj[key]
-
       for(let i=0; i<msgArr.length; i++) {
-        // console.log(store.getState().userInfo._id);
-        
         if(msgArr[i].to === store.getState().userInfo._id) {
           let from  = msgArr[i].from
-          // console.log(msgArr[i].from);
-          console.log(from);
           // 根据from找出对方的头像的名字
           store.getState().otherInfo.forEach((info, index) => {
             if(info._id === from) {
@@ -85,25 +80,38 @@ export default class ChatList extends Component {
       nameArr
     }
   }
+  findEachNoReadNum = obj => {
+    let numArr = []
+    for(let key in obj) {
+      let tempArr = 0      
+      for(let i=0; i<obj[key].length; i++) {
+        if(obj[key][i].to === store.getState().userInfo._id) {
+          tempArr += 1
+        }
+      }
+      numArr.push(tempArr)
+    }
+    return numArr
+  }
   render() {
     // 将所有信息按照用户分组
     let arr = this.groupArr()
     let obj = this.groupObj(arr)
     // 查询用户名和头像
     const { nameArr, avatarArr } = this.findNA(obj)
-    // console.log(obj);
-    
+    console.log(obj);
+    let numArr = this.findEachNoReadNum(obj)
     return (
       <div className='chatlist'>
         <ul>
           {arr.map((list, index) => (
-            <li key={index} className='list-itme'> 
+            <li key={index} className='list-item'> 
               <img src={avatarArr[index]} alt=""/>
               <div className='list-item-right'>
-                <p className='list-item-right-top'>{obj[index][obj[index].length-1].content}</p>
-                <p className='list-item-right-bottom'>{nameArr[index]}</p>
+                <p className='list-item-right-top'>{nameArr[index]}</p>
+                <p className='list-item-right-bottom'>{obj[index][obj[index].length-1].content}</p>
               </div>
-              <span></span>
+              <span className='list-item-num'>{numArr[index]}</span>
             </li>
           ))}
           

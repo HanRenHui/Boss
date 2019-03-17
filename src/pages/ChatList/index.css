@@ -1,4 +1,56 @@
 .chatlist {
-  padding: 5rem 0;
+  padding: 6rem 0;
   box-sizing: border-box;
+}
+.chatlist li {
+  position: relative;
+  display: flex;
+  align-items: center;
+  height: 5rem;
+  margin-bottom: 2rem;
+  box-sizing: border-box;
+  padding: 0 1.5rem;
+}
+.list-item img {
+  width: 5rem;
+  height: 4rem;
+}
+.list-item-right {
+  padding: 1rem 0;
+  width: 100%;
+  margin-left: 2rem;
+  border-bottom: 1px solid #e0e0e0;
+}
+
+.list-item-right {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.list-item-right .list-item-right-top {
+  font-family: '微软雅黑';
+  font-size: 1.8rem;
+  margin-bottom: .3rem;
+
+}
+
+.list-item-right .list-item-right-bottom {
+  font-family: '微软雅黑';
+  font-size: 1.4rem;  
+  color: gray;
+}
+.list-item-num {
+  position: absolute;
+  right: 10%;
+  top: 50%;
+  transform: translateY(-50%);
+  font-family: '微软雅黑';
+  color: #fff;
+  background: red;
+  width: 1.8rem;
+  height: 1.8rem;
+  text-align: center;
+  line-height: 1.8rem;
+  border-radius: 50%;
 }
