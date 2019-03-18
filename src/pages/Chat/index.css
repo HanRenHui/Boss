@@ -50,12 +50,12 @@
   color: #fff;
 }
 
-.am-grid-icon {
+.chat .am-grid-icon {
   display: none;
 }
 
 
-.am-grid .am-flexbox .am-flexbox-item .am-grid-item-content .am-grid-item-inner-content .am-grid-text {
+.chat .am-grid .am-flexbox .am-flexbox-item .am-grid-item-content .am-grid-item-inner-content .am-grid-text {
   margin-top: 9px;
   font-size: 1.8rem;
   color: #000;
